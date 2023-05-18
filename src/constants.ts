@@ -91,17 +91,17 @@ export const RANKS = [
     value: 18,
   },
   {
-    id: 'As1',
+    id: 'A1',
     fullName: 'アセンダント1',
     value: 19,
   },
   {
-    id: 'As2',
+    id: 'A2',
     fullName: 'アセンダント2',
     value: 20,
   },
   {
-    id: 'As3',
+    id: 'A3',
     fullName: 'アセンダント3',
     value: 21,
   },
