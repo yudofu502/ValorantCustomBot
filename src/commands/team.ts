@@ -31,13 +31,13 @@ export default {
     const division = TEAMS
     const teamSize = Math.ceil(members.size / division)
     const teamFunc = async (int?: BaseInteraction) => {
-      const players = members.clone()
 
       let teams: GuildMember[][]
       let threshhold = initialThreshold
       let retry = 0
 
       while (true) {
+        const players = members.clone()
         let under = division * teamSize - players.size
 
         teams = new Array(division).fill(null).map((_, i) => {
