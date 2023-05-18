@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/constants.ts"],
+  "sourcesContent": ["export const TEAMS = 2 //\u30C1\u30FC\u30E0\u5206\u3051\u306E\u30C1\u30FC\u30E0\u6570\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAO,MAAM,QAAQ;",
+  "names": []
+}
