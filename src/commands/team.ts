@@ -8,7 +8,7 @@ import { getRank } from '../utils/rank'
 const initialThreshold = 1
 
 // 再抽選の際に戦力差の閾値をどれだけ上げるか
-const thresholdStep = 0.1
+const thresholdStep = 0.2
 
 // 再抽選の最大回数
 const maxRetry = 100
@@ -73,12 +73,16 @@ export default {
       }
       const content = teams.reduce((acc, members, i) => {
         const index = i + 1
+<<<<<<< HEAD
         return (
           acc +
           `チーム${index}\n` +
           members.map((m) => `${m.toString()} ${getRank(m.user.id)?.emoji ?? ''}`).join('\n') +
           '\n\n'
         )
+=======
+        return acc + `チーム${index} (${index == 1 ? "Attacker" : "Defender"})\n ` + members.map((m: { toString: () => any }) => m.toString()).join('\n') + '\n\n'
+>>>>>>> callコマンド登録,チームコマンド修正
       }, '')
       const components = [
         new ActionRowBuilder<ButtonBuilder>().addComponents([
