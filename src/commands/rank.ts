@@ -20,15 +20,19 @@ export default {
     const key = interaction.user.id
     if (!interaction.options.getString('rank')) {
       // 返信する
-      await interaction.reply('あなたのランクは' + (guilds.get(key)?.fullName ?? '未設定') + 'です')
+      const rankId = guilds.get(key)
+
+      const rank = RANKS.find(
+        (rank) => rank.shortName === rankId);
+      await interaction.reply(interaction.user.username + 'は' + (rank?.fullName ?? 'ランクなし') + 'です')
     } else {
       // ランクを設定する
       const rankName = interaction.options.getString('rank')!
       const rank = RANKS.find(
         (rank) => rank.shortName === rankName || rank.fullName === rankName || rank.otherNames?.includes(rankName)
       )
-      guilds.set(key, rank)
-      await interaction.reply('あなたのランクを' + (guilds.get(key) ?? '未設定') + 'に設定しました')
+      guilds.set(key, rank?.shortName)
+      await interaction.reply(interaction.user.username + 'のランクを' + (rank?.fullName ?? 'ランクなし') + 'に設定しました')
     }
   },
 } as Command
