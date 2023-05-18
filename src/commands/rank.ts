@@ -23,15 +23,15 @@ export default {
       const rankId = guilds.get(key)
 
       const rank = RANKS.find(
-        (rank) => rank.shortName === rankId);
+        (rank) => rank.id === rankId);
       await interaction.reply(interaction.user.username + 'は' + (rank?.fullName ?? 'ランクなし') + 'です')
     } else {
       // ランクを設定する
       const rankName = interaction.options.getString('rank')!
       const rank = RANKS.find(
-        (rank) => rank.shortName === rankName || rank.fullName === rankName || rank.otherNames?.includes(rankName)
+        (rank) => rank.id === rankName || rank.fullName === rankName || rank.otherNames?.includes(rankName)
       )
-      guilds.set(key, rank?.shortName)
+      guilds.set(key, rank?.id)
       await interaction.reply(interaction.user.username + 'のランクを' + (rank?.fullName ?? 'ランクなし') + 'に設定しました')
     }
   },

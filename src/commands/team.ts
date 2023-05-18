@@ -53,12 +53,12 @@ export default {
 
         const team1Power = team1.reduce((acc, m) => {
           const rankId = guilds.get(m.user.id)
-          const rank = RANKS.find((r: Rank) => r.shortName === rankId)
+          const rank = RANKS.find((r: Rank) => r.id === rankId)
           return acc + (rank?.value ?? 9)
         }, 0)
         const team2Power = team2.reduce((acc, m) => {
           const rankId = guilds.get(m.user.id)
-          const rank = RANKS.find((r: Rank) => r.shortName === rankId)
+          const rank = RANKS.find((r: Rank) => r.id === rankId)
           return acc + (rank?.value ?? 9)
         }, 0)
         console.log(team1Power, team2Power)
