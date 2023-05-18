@@ -1,0 +1,2 @@
+# ValorantCustomBot
+Valorantカスタム用DiscordBotリポジトリです
