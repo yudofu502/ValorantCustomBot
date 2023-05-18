@@ -112,7 +112,7 @@ export const RANKS = [
   },
 ] as Rank[]
 
-type Rank = {
+export type Rank = {
   shortName: string
   fullName: string
   otherNames?: string[]

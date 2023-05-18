@@ -1,7 +1,16 @@
-import { ActionRowBuilder, BaseInteraction, ButtonBuilder, ButtonStyle } from 'discord.js'
+import { ActionRowBuilder, BaseInteraction, ButtonBuilder, ButtonStyle, GuildMember } from 'discord.js'
 import { Command } from '../types/command'
-import { TEAMS } from '../constants'
+import { RANKS, Rank, TEAMS } from '../constants'
 import { guilds } from '../../index'
+
+// 2チームの戦力差がこの数字より小さくなるまで再抽選する
+const initialThreshold = 1
+
+// 再抽選の際に戦力差の閾値をどれだけ上げるか
+const thresholdStep = 0.1
+
+// 再抽選の最大回数
+const maxRetry = 100
 
 export default {
   commandType: 'guild',
@@ -23,15 +32,43 @@ export default {
     const teamSize = Math.ceil(members.size / division)
     const teamFunc = async (int?: BaseInteraction) => {
       const players = members.clone()
-      let under = division * teamSize - players.size
-      const teams = new Array(division).fill(null).map((_, i) => {
-        const handicap = Math.ceil(under / (division - i))
-        under -= handicap
-        const num = teamSize - handicap
-        const rands = players.random(num)
-        players.sweep((p: any) => rands.includes(p))
-        return rands
-      })
+
+      let teams: GuildMember[][]
+      let threshhold = initialThreshold
+      let retry = 0
+
+      while (true) {
+        let under = division * teamSize - players.size
+
+        teams = new Array(division).fill(null).map((_, i) => {
+          const handicap = Math.ceil(under / (division - i))
+          under -= handicap
+          const num = teamSize - handicap
+          const rands = players.random(num)
+          players.sweep((p: any) => rands.includes(p))
+          return rands
+        })
+        const team1 = teams[0]
+        const team2 = teams[1]
+
+        const team1Power = team1.reduce((acc, m) => {
+          const rankId = guilds.get(m.user.id)
+          const rank = RANKS.find((r: Rank) => r.shortName === rankId)
+          return acc + (rank?.value ?? 9)
+        }, 0)
+        const team2Power = team2.reduce((acc, m) => {
+          const rankId = guilds.get(m.user.id)
+          const rank = RANKS.find((r: Rank) => r.shortName === rankId)
+          return acc + (rank?.value ?? 9)
+        }, 0)
+        console.log(team1Power, team2Power)
+        const diff = Math.abs(team1Power - team2Power)
+        if (diff <= threshhold || retry >= maxRetry) {
+          break
+        }
+        threshhold += thresholdStep
+        retry++
+      }
       const content = teams.reduce((acc, members, i) => {
         const index = i + 1
         return acc + `チーム${index}\n` + members.map((m: { toString: () => any }) => m.toString()).join('\n') + '\n\n'
