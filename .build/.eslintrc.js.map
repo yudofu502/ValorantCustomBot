@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../.eslintrc.js"],
-  "sourcesContent": ["module.exports = {\n  env: {\n    browser: true,\n  },\n  extends: 'standard-with-typescript',\n  overrides: [],\n  parserOptions: {\n    ecmaVersion: 'latest',\n    sourceType: 'module',\n  },\n  rules: {},\n}\n"],
-  "mappings": ";AAAA,OAAO,UAAU;AAAA,EACf,KAAK;AAAA,IACH,SAAS;AAAA,EACX;AAAA,EACA,SAAS;AAAA,EACT,WAAW,CAAC;AAAA,EACZ,eAAe;AAAA,IACb,aAAa;AAAA,IACb,YAAY;AAAA,EACd;AAAA,EACA,OAAO,CAAC;AACV;",
-  "names": []
-}

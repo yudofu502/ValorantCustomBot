@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../src/types/command.ts"],
-  "sourcesContent": ["import { CacheType, ChatInputCommandInteraction } from 'discord.js'\n\nexport interface Command {\n  commandType: 'global' | 'guild'\n  name: string\n  description: string\n  options?: any[]\n  execute: (interaction: ChatInputCommandInteraction<CacheType>) => void\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;AAAA;AAAA;",
-  "names": []
-}
