@@ -6,6 +6,7 @@ import { Command } from './src/types/command'
 import map from './src/commands/map.js'
 import vc from './src/commands/vc.js'
 import team from './src/commands/team.js'
+import rank from './src/commands/rank.js'
 
 export const guilds = new KeyvFile({
   filename: 'guilds.keyv',
@@ -19,7 +20,7 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
   ],
 })
-const commands = [map, vc, team] as Command[]
+const commands = [map, vc, team, rank] as Command[]
 
 // Botが起動した時の処理
 client.once(Events.ClientReady, async () => {
