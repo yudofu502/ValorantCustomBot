@@ -1,13 +1,11 @@
-import { Client, Collection, Events, GatewayIntentBits, SlashCommandBuilder } from 'discord.js'
+import { Client, Events, GatewayIntentBits } from 'discord.js'
 import { KeyvFile } from 'keyv-file'
 
-import dotenv from 'dotenv'
 import { Command } from './src/types/command'
 
 import map from './src/commands/map.js'
 import vc from './src/commands/vc.js'
 import team from './src/commands/team.js'
-import { createRequire } from 'module'
 
 export const guilds = new KeyvFile({
   filename: 'guilds.keyv',
