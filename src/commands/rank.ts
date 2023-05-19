@@ -14,7 +14,7 @@ export default {
       name: 'rank',
       description: '自分のランク',
       choices: RANKS.map((rank) => ({
-        name: `${rank.emoji ?? ''}${rank.fullName}`,
+        name: rank.fullName,
         value: rank.id,
       })),
     },
@@ -43,10 +43,10 @@ export default {
       guilds.set(key, rank?.id)
       await interaction.reply(
         interaction.user.username +
-          'のランクを' +
-          (rank?.emoji ?? '') +
-          (rank?.fullName ?? 'ランクなし') +
-          'に設定しました'
+        'のランクを' +
+        (rank?.emoji ?? '') +
+        (rank?.fullName ?? 'ランクなし') +
+        'に設定しました'
       )
     }
   },
