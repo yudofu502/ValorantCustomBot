@@ -46,7 +46,8 @@ export default {
       return
     }
 
-    await interaction.channel?.send({
+    await interaction.reply({
+      content: interaction.user.toString() + ' エージェントを選択しました',
       embeds: [
         {
           title: agent.name,
@@ -56,7 +57,6 @@ export default {
         },
       ],
     })
-    interaction.reply(interaction.user.toString() + ' エージェントを選択しました')
   },
 } as Command
 
@@ -82,10 +82,10 @@ const getAgent = async (roleStrict: String | null): Promise<Agent | undefined> =
           img: agent.displayIcon,
         } as Agent
       })
-      .filter((agent: Agent) => !roleStrict || agent.roleName === roleStrict)
     agentsCache.set('agents', agentsData, 60 * 60 * 1000) //ソースからの更新頻度
   }
-  const agents: Agent[] = cached ?? agentsData ?? []
+  const agents: Agent[] = (cached ?? agentsData ?? [])
+    .filter((agent: Agent) => !roleStrict || agent.roleName === roleStrict)
   const agent = agents[Math.floor(Math.random() * agents.length)]
   return agent
 }

@@ -19,17 +19,18 @@ export default {
       return
     }
 
-    await interaction.channel?.send({
-      embeds: [
-        {
-          title: map.name,
-          image: {
-            url: map.img,
+    await interaction.reply(
+      {
+        content: 'マップを選択しました',
+        embeds: [
+          {
+            title: map.name,
+            image: {
+              url: map.img,
+            },
           },
-        },
-      ],
-    })
-    interaction.reply('マップを選択しました')
+        ],
+      })
   },
 } as Command
 
