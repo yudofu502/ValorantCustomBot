@@ -20,7 +20,6 @@ export default {
     }
 
     await interaction.channel?.send({
-      content: `抽選結果\n${map.name}`,
       embeds: [
         {
           title: map.name,
@@ -30,6 +29,7 @@ export default {
         },
       ],
     })
+    interaction.reply('マップを選択しました')
   },
 } as Command
 
@@ -40,17 +40,19 @@ const mapsCache = new Keyv({
 const getMap = async (): Promise<Map | undefined> => {
   const cached = await mapsCache.get('maps')
 
+  let mapsData: Map[] = [];
+
   if (!cached) {
     const mapApi = `https://valorant-api.com/v1/maps?language=ja-JP`
     const res = await fetch(mapApi)
     const data = await res.json()
-    const mapsData: Map[] = data.data.map((map: any) => {
+    mapsData = data.data.map((map: any) => {
       return { id: map.uuid, name: map.displayName, img: map.splash } as Map
     })
 
     mapsCache.set('maps', mapsData, 60 * 60 * 1000) //ソースからの更新頻度
   }
-  const maps: Map[] = cached ?? []
+  const maps: Map[] = cached ?? mapsData ?? []
   const map = maps[Math.floor(Math.random() * maps.length)]
   return map
 }
