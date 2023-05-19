@@ -56,7 +56,7 @@ export default {
         },
       ],
     })
-    interaction.reply('エージェントを選択しました')
+    interaction.reply(interaction.user.toString() + ' エージェントを選択しました')
   },
 } as Command
 
@@ -77,7 +77,7 @@ const getAgent = async (roleStrict: String | null): Promise<Agent | undefined> =
       .map((agent: any) => {
         return {
           id: agent.uuid,
-          roleName: agent.role.displayName,
+          roleName: agent.role?.displayName,
           name: agent.displayName,
           img: agent.displayIcon,
         } as Agent

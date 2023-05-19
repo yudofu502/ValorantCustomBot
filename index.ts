@@ -12,7 +12,7 @@ import agent from './src/commands/agent'
 
 const http = require('http')
 http
-  .createServer(function (req: any, res: any) {
+  .createServer(function(req: any, res: any) {
     res.write('online')
     res.end()
   })
@@ -32,6 +32,7 @@ const commands = [map, vc, team, rank, call, help, agent] as Command[]
 client.once(Events.ClientReady, async () => {
   await client?.application?.commands.set(
     commands.map((command) => {
+      console.log(command)
       return {
         name: command.name,
         description: command.description,
