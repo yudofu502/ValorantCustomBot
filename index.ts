@@ -8,6 +8,7 @@ import team from './src/commands/team.js'
 import rank from './src/commands/rank.js'
 import call from './src/commands/call.js'
 import help from './src/commands/help'
+import agent from './src/commands/agent'
 
 const http = require('http')
 http
@@ -25,7 +26,7 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
   ],
 })
-const commands = [map, vc, team, rank, call, help] as Command[]
+const commands = [map, vc, team, rank, call, help, agent] as Command[]
 
 // Botが起動した時の処理
 client.once(Events.ClientReady, async () => {
