@@ -6,6 +6,7 @@ export default {
   name: 'help',
   description: 'Botの説明を表示します',
   async execute(interaction) {
+    await interaction.deferReply({ ephemeral: true });
     const embed: APIEmbed = {
       title: 'Botの使い方',
       description: 'Valorantカスタム用のBotです',
@@ -25,7 +26,7 @@ export default {
         {
           name: '/rank',
           value:
-            '自分のランクを設定または確認します\nランクは`/team`でチーム分けする際に考慮されます\nランクは`ゴールド2`か`G2`のように指定してください（',
+            '自分のランクを設定または確認します\nランクは`/team`でチーム分けする際に考慮されます\n',
         },
       ],
       footer: { text: 'made by secchanu' },
