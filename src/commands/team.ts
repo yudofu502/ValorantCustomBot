@@ -1,7 +1,8 @@
 import { ActionRowBuilder, BaseInteraction, ButtonBuilder, ButtonStyle, GuildMember } from 'discord.js'
 import { Command } from '../types/command'
 import { RANKS, Rank, TEAMS } from '../constants'
-import { guilds } from '../../index'
+import KeyvFile from 'keyv-file'
+import { getRank } from '../utils/rank'
 
 // 2チームの戦力差がこの数字より小さくなるまで再抽選する
 const initialThreshold = 1
@@ -21,6 +22,10 @@ export default {
     await interaction.deferReply({ ephemeral: false })
     const key = interaction.guildId
     if (!interaction.inCachedGuild()) return
+    const guilds = new KeyvFile({
+      filename: 'guilds.keyv',
+    })
+
     const channel = interaction.member.voice.channel
     if (!channel) {
       await interaction.followUp('VCに参加中のみ使用可能です')
@@ -31,7 +36,6 @@ export default {
     const division = TEAMS
     const teamSize = Math.ceil(members.size / division)
     const teamFunc = async (int?: BaseInteraction) => {
-
       let teams: GuildMember[][]
       let threshhold = initialThreshold
       let retry = 0
@@ -52,13 +56,11 @@ export default {
         const team2 = teams[1]
 
         const team1Power = team1.reduce((acc, m) => {
-          const rankId = guilds.get(m.user.id)
-          const rank = RANKS.find((r: Rank) => r.id === rankId)
+          const rank = getRank(m.user.id)
           return acc + (rank?.value ?? 9)
         }, 0)
         const team2Power = team2.reduce((acc, m) => {
-          const rankId = guilds.get(m.user.id)
-          const rank = RANKS.find((r: Rank) => r.id === rankId)
+          const rank = getRank(m.user.id)
           return acc + (rank?.value ?? 9)
         }, 0)
         console.log(team1Power, team2Power)
@@ -71,7 +73,12 @@ export default {
       }
       const content = teams.reduce((acc, members, i) => {
         const index = i + 1
-        return acc + `チーム${index}\n` + members.map((m: { toString: () => any }) => m.toString()).join('\n') + '\n\n'
+        return (
+          acc +
+          `チーム${index}\n` +
+          members.map((m) => `${m.toString()} ${getRank(m.user.id)?.emoji ?? ''}`).join('\n') +
+          '\n\n'
+        )
       }, '')
       const components = [
         new ActionRowBuilder<ButtonBuilder>().addComponents([

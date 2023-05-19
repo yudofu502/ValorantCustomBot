@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType, ChannelType } from 'discord.js'
 import { TEAMS } from '../constants'
-import { guilds } from '../../index'
 import { Command } from '../types/command'
+import KeyvFile from 'keyv-file'
 
 export default {
   commandType: 'guild',
@@ -27,6 +27,10 @@ export default {
   async execute(interaction) {
     if (!interaction.inCachedGuild()) return
     const key = interaction.guildId
+    const guilds = new KeyvFile({
+      filename: 'guilds.keyv',
+    })
+
     await interaction.deferReply({ ephemeral: true })
     if (!interaction.guild?.members.me?.roles?.botRole) {
       await interaction.followUp('Botに必要なロールが付与されていません')

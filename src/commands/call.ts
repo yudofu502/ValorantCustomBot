@@ -1,8 +1,6 @@
 import { Command } from '../types/command'
-import Keyv from 'keyv'
-import fetch from 'isomorphic-fetch'
-import { guilds } from '../..'
 import { ChannelType } from 'discord.js'
+import KeyvFile from 'keyv-file'
 
 export default {
   commandType: 'global',
@@ -10,6 +8,9 @@ export default {
   description: 'ロビーに皆を集合させます',
   async execute(interaction) {
     if (!interaction.inCachedGuild()) return
+    const guilds = new KeyvFile({
+      filename: 'guilds.keyv',
+    })
     const key = interaction.guildId
     await interaction.deferReply({ ephemeral: false })
     const cache = interaction.guild.channels.cache
