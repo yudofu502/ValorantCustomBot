@@ -9,15 +9,13 @@ import team from './src/commands/team.js'
 import rank from './src/commands/rank.js'
 import call from './src/commands/call.js'
 
-const http = require('http');
-http.createServer(function(req, res) {
-  res.write("online");
-  res.end();
-}).listen(8080);
-
-const guilds = new KeyvFile({
-  filename: 'guilds.keyv',
-})
+const http = require('http')
+http
+  .createServer(function (req: any, res: any) {
+    res.write('online')
+    res.end()
+  })
+  .listen(8080)
 
 const client = new Client({
   intents: [

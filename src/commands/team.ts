@@ -75,12 +75,10 @@ export default {
         const index = i + 1
         return (
           acc +
-          `チーム${index}\n` +
+          `チーム${index} (${index == 1 ? 'アタッカー' : 'ディフェンダー'})\n ` +
           members.map((m) => `${m.toString()} ${getRank(m.user.id)?.emoji ?? ''}`).join('\n') +
           '\n\n'
         )
-        return acc + `チーム${index} (${index == 1 ? "アタッカー" : "ディフェンダー"})\n ` + members.map((m) => `${m.toString()} ${getRank(m.user.id)?.emoji ?? ''}`).join('\n') +
-          '\n\n'
       }, '')
       const components = [
         new ActionRowBuilder<ButtonBuilder>().addComponents([
