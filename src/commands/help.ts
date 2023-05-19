@@ -25,8 +25,11 @@ export default {
         },
         {
           name: '/rank',
-          value:
-            '自分のランクを設定または確認します\nランクは`/team`でチーム分けする際に考慮されます\n',
+          value: '自分のランクを設定または確認します\nランクは`/team`でチーム分けする際に考慮されます',
+        },
+        {
+          name: '/agent',
+          value: 'ランダムにエージェントを選択します\nオプションでロールを指定できます',
         },
       ],
       footer: { text: 'made by secchanu' },
