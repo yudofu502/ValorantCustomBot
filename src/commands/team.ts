@@ -73,16 +73,14 @@ export default {
       }
       const content = teams.reduce((acc, members, i) => {
         const index = i + 1
-<<<<<<< HEAD
         return (
           acc +
           `チーム${index}\n` +
           members.map((m) => `${m.toString()} ${getRank(m.user.id)?.emoji ?? ''}`).join('\n') +
           '\n\n'
         )
-=======
-        return acc + `チーム${index} (${index == 1 ? "Attacker" : "Defender"})\n ` + members.map((m: { toString: () => any }) => m.toString()).join('\n') + '\n\n'
->>>>>>> callコマンド登録,チームコマンド修正
+        return acc + `チーム${index} (${index == 1 ? "アタッカー" : "ディフェンダー"})\n ` + members.map((m) => `${m.toString()} ${getRank(m.user.id)?.emoji ?? ''}`).join('\n') +
+          '\n\n'
       }, '')
       const components = [
         new ActionRowBuilder<ButtonBuilder>().addComponents([

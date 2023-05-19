@@ -9,6 +9,12 @@ import team from './src/commands/team.js'
 import rank from './src/commands/rank.js'
 import call from './src/commands/call.js'
 
+const http = require('http');
+http.createServer(function(req, res) {
+  res.write("online");
+  res.end();
+}).listen(8080);
+
 const guilds = new KeyvFile({
   filename: 'guilds.keyv',
 })
@@ -21,7 +27,7 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
   ],
 })
-const commands = [map, vc, team, rank,call] as Command[]
+const commands = [map, vc, team, rank, call] as Command[]
 
 // Botが起動した時の処理
 client.once(Events.ClientReady, async () => {
