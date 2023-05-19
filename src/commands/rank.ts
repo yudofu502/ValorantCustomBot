@@ -32,7 +32,7 @@ export default {
 
       const rank = RANKS.find((rank) => rank.id === rankId)
       await interaction.reply(
-        interaction.user.username + 'は' + (rank?.emoji ?? '') + (rank?.fullName ?? 'ランクなし') + 'です'
+        interaction.user.toString() + 'は' + (rank?.emoji ?? '') + (rank?.fullName ?? 'ランクなし') + 'です'
       )
     } else {
       // ランクを設定する
@@ -42,7 +42,7 @@ export default {
       )
       guilds.set(key, rank?.id)
       await interaction.reply(
-        interaction.user.username +
+        interaction.user.toString() +
         'のランクを' +
         (rank?.emoji ?? '') +
         (rank?.fullName ?? 'ランクなし') +
