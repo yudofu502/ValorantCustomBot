@@ -11,7 +11,7 @@ export default {
     // ランク
     {
       type: ApplicationCommandOptionType.String,
-      name: 'rank',
+      name: 'update',
       description: '自分のランク',
       choices: RANKS.map((rank) => ({
         name: rank.fullName,
@@ -43,10 +43,10 @@ export default {
       guilds.set(key, rank?.id)
       await interaction.reply(
         interaction.user.toString() +
-        'のランクを' +
-        (rank?.emoji ?? '') +
-        (rank?.fullName ?? 'ランクなし') +
-        'に設定しました'
+          'のランクを' +
+          (rank?.emoji ?? '') +
+          (rank?.fullName ?? 'ランクなし') +
+          'に設定しました'
       )
     }
   },
