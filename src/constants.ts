@@ -64,7 +64,7 @@ export const RANKS = [
     id: 'G2',
     fullName: 'ゴールド2',
     value: 11,
-    emoji: ':gold2:1108966118200193035>',
+    emoji: '<:gold2:1108966118200193035>',
   },
   {
     id: 'G3',
