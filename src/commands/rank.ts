@@ -11,7 +11,7 @@ export default {
     // ランク
     {
       type: ApplicationCommandOptionType.String,
-      name: 'rank',
+      name: 'update',
       description: '自分のランク',
       choices: RANKS.map((rank) => ({
         name: rank.fullName,
@@ -28,9 +28,9 @@ export default {
     const key = interaction.user.id
     if (!interaction.options.getString('rank')) {
       // 返信する
-      const rankId = guilds.get(key)
+      const ratio = guilds.get(key) as number
 
-      const rank = RANKS.find((rank) => rank.id === rankId)
+      const rank = RANKS.filter((rank) => rank.value <= ratio).pop()
       await interaction.reply(
         interaction.user.toString() + 'は' + (rank?.emoji ?? '') + (rank?.fullName ?? 'ランクなし') + 'です'
       )
@@ -40,13 +40,13 @@ export default {
       const rank = RANKS.find(
         (rank) => rank.id === rankName || rank.fullName === rankName || rank.otherNames?.includes(rankName)
       )
-      guilds.set(key, rank?.id)
+      guilds.set(key, rank?.value ?? 0)
       await interaction.reply(
         interaction.user.toString() +
-        'のランクを' +
-        (rank?.emoji ?? '') +
-        (rank?.fullName ?? 'ランクなし') +
-        'に設定しました'
+          'のランクを' +
+          (rank?.emoji ?? '') +
+          (rank?.fullName ?? 'ランクなし') +
+          'に設定しました'
       )
     }
   },

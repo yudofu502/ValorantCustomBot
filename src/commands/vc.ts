@@ -26,7 +26,7 @@ export default {
   ],
   async execute(interaction) {
     if (!interaction.inCachedGuild()) return
-    const key = interaction.guildId
+    const guildId = interaction.guildId
     const guilds = new KeyvFile({
       filename: 'guilds.keyv',
     })
@@ -55,7 +55,7 @@ export default {
       home: home?.id,
       VCs: VCs.map((ch) => ch?.id),
     }
-    guilds.set(key, channels)
+    guilds.set(`${guildId}.channels`, channels)
     await interaction.followUp(
       `以下の内容で設定しました\n\n${VCs.reduce((acc, vc, i) => {
         const index = i + 1
