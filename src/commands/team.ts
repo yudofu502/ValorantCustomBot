@@ -5,10 +5,10 @@ import KeyvFile from 'keyv-file'
 import { getRank } from '../utils/rank'
 
 // 2チームの戦力差がこの数字より小さくなるまで再抽選する
-const initialThreshold = 2
+const initialThreshold = 20
 
 // 再抽選の際に戦力差の閾値をどれだけ上げるか
-const thresholdStep = 1
+const thresholdStep = 5
 
 // 再抽選の最大回数
 const maxRetry = 100
