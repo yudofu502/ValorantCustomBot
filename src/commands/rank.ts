@@ -2,6 +2,7 @@ import { ApplicationCommandOptionType } from 'discord.js'
 import { RANKS } from '../constants'
 import { Command } from '../types/command'
 import KeyvFile from 'keyv-file'
+import { getRank, setRatio } from '../utils/rank'
 
 export default {
   commandType: 'guild',
@@ -28,9 +29,8 @@ export default {
     const key = interaction.user.id
     if (!interaction.options.getString('update')) {
       // 返信する
-      const ratio = guilds.get(key) as number
 
-      const rank = RANKS.filter((rank) => rank.value <= ratio).pop()
+      const rank = getRank(key)
       await interaction.reply(
         interaction.user.toString() + 'は' + (rank?.emoji ?? '') + (rank?.fullName ?? 'ランクなし') + 'です'
       )
@@ -40,7 +40,7 @@ export default {
       const rank = RANKS.find(
         (rank) => rank.id === rankName || rank.fullName === rankName || rank.otherNames?.includes(rankName)
       )
-      guilds.set(key, rank?.value ?? 0)
+      setRatio(key, rank?.value ?? 0)
       await interaction.reply(
         interaction.user.toString() +
           'のランクを' +
