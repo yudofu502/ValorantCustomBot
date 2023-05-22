@@ -37,7 +37,7 @@ export default {
       const rank = RANKS.find(
         (rank) => rank.id === rankName || rank.fullName === rankName || rank.otherNames?.includes(rankName)
       )
-      setRatio(key, rank?.value ?? 0)
+      setRatio(key, (rank?.value ?? 0) + 5)
       await interaction.reply(
         interaction.user.toString() +
           'のランクを' +
