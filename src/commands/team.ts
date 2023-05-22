@@ -1,4 +1,11 @@
-import { ActionRowBuilder, BaseInteraction, ButtonBuilder, ButtonStyle, GuildMember } from 'discord.js'
+import {
+  ActionRowBuilder,
+  ApplicationCommandOptionType,
+  BaseInteraction,
+  ButtonBuilder,
+  ButtonStyle,
+  GuildMember,
+} from 'discord.js'
 import { Command } from '../types/command'
 import { RANKS, Rank, TEAMS } from '../constants'
 import KeyvFile from 'keyv-file'
@@ -17,6 +24,13 @@ export default {
   commandType: 'guild',
   name: 'team',
   description: 'チーム分けを行います',
+  options: [
+    {
+      type: ApplicationCommandOptionType.String,
+      name: 'ignore',
+      description: 'チーム分けから除外するメンバーを設定（,区切り）',
+    },
+  ],
   async execute(interaction) {
     if (!interaction.inCachedGuild()) return
     await interaction.deferReply({ ephemeral: false })
@@ -32,7 +46,8 @@ export default {
       return
     }
     const botMessage = await interaction.followUp(`読み込み中…`)
-    const members = channel.members.filter((m: { user: { bot: any } }) => !m.user.bot)
+    const ignoreList = interaction.options.getString('ignore')?.split(',') ?? []
+    const members = channel.members.filter((m: GuildMember) => !m.user.bot && !ignoreList.includes(m.user.username))
     const division = TEAMS
     const teamSize = Math.ceil(members.size / division)
     const teamFunc = async (int?: BaseInteraction) => {
