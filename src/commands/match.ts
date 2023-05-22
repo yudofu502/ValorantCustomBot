@@ -49,6 +49,7 @@ export default {
     // レート10ごとに1ランク変動する
     // 例: 13-5の場合、roundNum = 13, roundDif = 8でratioDif = 10.5
     const ratioDif = roundNum / 2 + roundDif / 2
+    let message = '試合結果を登録しました'
     for (const team of teams) {
       for (const userId of team) {
         const won = teams[0] === team ? team1 > team2 : team2 > team1
@@ -59,13 +60,12 @@ export default {
         setRatio(userId, newRating)
         const newRank = ratioToRank(newRating)
         if (rank !== newRank) {
-          await interaction.followUp(
-            `<@${userId}>さんのランクが${rank?.emoji ?? ''}${rank.fullName}から${newRank?.emoji ?? ''
-            }${newRank.fullName}に変動しました`
-          )
+          message += `\n<@${userId}>さんのランクが${rank?.emoji ?? ''}${rank.fullName}から${newRank?.emoji ?? ''}${
+            newRank.fullName
+          }に変動しました`
         }
       }
     }
-    await interaction.followUp('試合結果を登録しました')
+    await interaction.reply(message)
   },
 } as Command
