@@ -60,9 +60,8 @@ export default {
         const newRank = ratioToRank(newRating)
         if (rank !== newRank) {
           await interaction.followUp(
-            `${userId.toString()}さんのランクが${rank?.emoji ?? ''}${rank}から${
-              newRank?.emoji ?? ''
-            }${newRank}に変動しました`
+            `<@${userId}>さんのランクが${rank?.emoji ?? ''}${rank.fullName}から${newRank?.emoji ?? ''
+            }${newRank.fullName}に変動しました`
           )
         }
       }
