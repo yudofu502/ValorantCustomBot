@@ -55,7 +55,7 @@ export default {
         const draw = team1 === team2
         const ratio = getRatio(userId) ?? INITIAL_RATIO
         const rank = ratioToRank(ratio)
-        const newRating = ratio + (won ? ratioDif : draw ? 0 : -ratioDif)
+        const newRating = Math.max(0, ratio + (won ? ratioDif : draw ? 0 : -ratioDif))
         setRatio(userId, newRating)
         const newRank = ratioToRank(newRating)
         if (rank !== newRank) {
