@@ -21,8 +21,13 @@ function getRank(userId: string): Rank | undefined {
     filename: 'members.keyv',
   })
   const ratio = members.get(userId)
-  const rank = RANKS.filter((rank) => rank.value <= ratio).pop()
+  const rank = ratio !== null ? ratioToRank(ratio) : undefined
   return rank
 }
 
-export { getRatio, getRank, setRatio }
+function ratioToRank(ratio: number): Rank {
+  const rank = RANKS.filter((rank) => rank.value <= ratio).pop()
+  return rank!
+}
+
+export { getRatio, getRank, setRatio, ratioToRank }

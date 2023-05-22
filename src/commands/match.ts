@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType } from 'discord.js'
 import { Command } from '../types/command'
 import KeyvFile from 'keyv-file'
-import { getRank, getRatio, setRatio } from '../utils/rank'
+import { getRank, getRatio, ratioToRank, setRatio } from '../utils/rank'
 import { INITIAL_RATIO } from '../constants'
 
 export default {
@@ -54,13 +54,14 @@ export default {
         const won = teams[0] === team ? team1 > team2 : team2 > team1
         const draw = team1 === team2
         const ratio = getRatio(userId) ?? INITIAL_RATIO
-        const rank = getRank(userId)
+        const rank = ratioToRank(ratio)
         const newRating = ratio + (won ? ratioDif : draw ? 0 : -ratioDif)
         setRatio(userId, newRating)
-        const newRank = getRank(userId)
+        const newRank = ratioToRank(newRating)
         if (rank !== newRank) {
           await interaction.followUp(
-            `${userId.toString()}さんのランクが${rank?.emoji ?? ''}${rank}から${newRank?.emoji ?? ''
+            `${userId.toString()}さんのランクが${rank?.emoji ?? ''}${rank}から${
+              newRank?.emoji ?? ''
             }${newRank}に変動しました`
           )
         }
