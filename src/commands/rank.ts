@@ -23,9 +23,6 @@ export default {
   async execute(interaction) {
     if (!interaction.inCachedGuild()) return
 
-    const guilds = new KeyvFile({
-      filename: 'guilds.keyv',
-    })
     const key = interaction.user.id
     if (!interaction.options.getString('update')) {
       // 返信する

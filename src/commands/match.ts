@@ -56,8 +56,6 @@ export default {
         const ratio = getRatio(userId) ?? INITIAL_RATIO
         const rank = getRank(userId)
         const newRating = ratio + (won ? ratioDif : draw ? 0 : -ratioDif)
-        console.log(ratio)
-        console.log(newRating)
         setRatio(userId, newRating)
         const newRank = getRank(userId)
         if (rank !== newRank) {
