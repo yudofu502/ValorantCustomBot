@@ -41,6 +41,9 @@ client.once(Events.ClientReady, async () => {
     }),
     process.env.GUILD_ID!
   )
+  await client.user?.setActivity({
+    name; 'Valorant',
+  })
 })
 
 // コマンドが実行された時の処理
