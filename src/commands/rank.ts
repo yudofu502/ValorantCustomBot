@@ -26,7 +26,7 @@ export default {
       filename: 'guilds.keyv',
     })
     const key = interaction.user.id
-    if (!interaction.options.getString('rank')) {
+    if (!interaction.options.getString('update')) {
       // 返信する
       const ratio = guilds.get(key) as number
 
@@ -36,7 +36,7 @@ export default {
       )
     } else {
       // ランクを設定する
-      const rankName = interaction.options.getString('rank')!
+      const rankName = interaction.options.getString('update')!
       const rank = RANKS.find(
         (rank) => rank.id === rankName || rank.fullName === rankName || rank.otherNames?.includes(rankName)
       )
