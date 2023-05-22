@@ -9,10 +9,11 @@ import rank from './src/commands/rank.js'
 import call from './src/commands/call.js'
 import help from './src/commands/help'
 import agent from './src/commands/agent'
+import match from './src/commands/match'
 
 const http = require('http')
 http
-  .createServer(function(req: any, res: any) {
+  .createServer(function (req: any, res: any) {
     res.write('online')
     res.end()
   })
@@ -26,7 +27,7 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
   ],
 })
-const commands = [map, vc, team, rank, call, help, agent] as Command[]
+const commands = [map, vc, team, rank, call, help, agent, match] as Command[]
 
 // Botが起動した時の処理
 client.once(Events.ClientReady, async () => {
@@ -41,9 +42,6 @@ client.once(Events.ClientReady, async () => {
     }),
     process.env.GUILD_ID!
   )
-  await client.user?.setActivity({
-    name; 'Valorant',
-  })
 })
 
 // コマンドが実行された時の処理

@@ -1,4 +1,5 @@
 export const TEAMS = 2 //チーム分けのチーム数
+export const INITIAL_RATIO = 60 //レート初期値
 export const RANKS = [
   {
     id: 'I1',

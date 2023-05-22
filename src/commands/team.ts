@@ -7,9 +7,9 @@ import {
   GuildMember,
 } from 'discord.js'
 import { Command } from '../types/command'
-import { RANKS, Rank, TEAMS } from '../constants'
+import { INITIAL_RATIO, RANKS, Rank, TEAMS } from '../constants'
 import KeyvFile from 'keyv-file'
-import { getRank } from '../utils/rank'
+import { getRank, getRatio } from '../utils/rank'
 
 // 2チームの戦力差がこの数字より小さくなるまで再抽選する
 const initialThreshold = 20
@@ -34,7 +34,7 @@ export default {
   async execute(interaction) {
     if (!interaction.inCachedGuild()) return
     await interaction.deferReply({ ephemeral: false })
-    const key = interaction.guildId
+    const guildId = interaction.guildId
     if (!interaction.inCachedGuild()) return
     const guilds = new KeyvFile({
       filename: 'guilds.keyv',
@@ -71,12 +71,10 @@ export default {
         const team2 = teams[1]
 
         const team1Power = team1.reduce((acc, m) => {
-          const rank = getRank(m.user.id)
-          return acc + (rank?.value ?? 9)
+          return acc + (getRatio(m.user.id) ?? INITIAL_RATIO)
         }, 0)
         const team2Power = team2.reduce((acc, m) => {
-          const rank = getRank(m.user.id)
-          return acc + (rank?.value ?? 9)
+          return acc + (getRatio(m.user.id) ?? INITIAL_RATIO)
         }, 0)
         console.log(team1Power, team2Power)
         const diff = Math.abs(team1Power - team2Power)
@@ -121,7 +119,7 @@ export default {
         }
         case 'move': {
           await res.update({ content, components: [] })
-          const channels = guilds.get(key)
+          const channels = guilds.get(`${guildId}.channels`)
           const VCs = channels.VCs
           teams.forEach((members, i) => {
             members.forEach((member: { voice: { channel: any; setChannel: (arg0: any) => void } }) => {
@@ -129,6 +127,10 @@ export default {
               member.voice.setChannel(VCs[i])
             })
           })
+          guilds.set(
+            `${guildId}.teams`,
+            teams.map((m) => m.map((m) => m.user.id))
+          )
           break
         }
         case 'again': {
