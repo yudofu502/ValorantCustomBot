@@ -9,11 +9,11 @@ function getRatio(userId: string): number | undefined {
   return ratio
 }
 
-async function setRatio(userId: string, ratio: number): Promise<void> {
+function setRatio(userId: string, ratio: number): void {
   const guilds = new KeyvFile({
     filename: 'guilds.keyv',
   })
-  await guilds.set(userId, ratio)
+  guilds.set(userId, ratio)
 }
 
 function getRank(userId: string): Rank | undefined {

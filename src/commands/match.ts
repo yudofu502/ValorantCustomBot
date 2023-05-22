@@ -50,24 +50,24 @@ export default {
     // 例: 13-5の場合、roundNum = 13, roundDif = 8でratioDif = 10.5
     const ratioDif = roundNum / 2 + roundDif / 2
     for (const team of teams) {
-      for (const userId of teams[0]) {
+      for (const userId of team) {
         const won = teams[0] === team ? team1 > team2 : team2 > team1
         const draw = team1 === team2
         const ratio = getRatio(userId) ?? INITIAL_RATIO
         const rank = getRank(userId)
         const newRating = ratio + (won ? ratioDif : draw ? 0 : -ratioDif)
-        await setRatio(userId, newRating)
+        console.log(ratio)
+        console.log(newRating)
+        setRatio(userId, newRating)
         const newRank = getRank(userId)
         if (rank !== newRank) {
           await interaction.followUp(
-            `${userId.toString()}さんのランクが${rank?.emoji ?? ''}${rank}から${
-              newRank?.emoji ?? ''
+            `${userId.toString()}さんのランクが${rank?.emoji ?? ''}${rank}から${newRank?.emoji ?? ''
             }${newRank}に変動しました`
           )
         }
       }
     }
-    await guilds.delete(`${guildId}.teams`)
     await interaction.followUp('試合結果を登録しました')
   },
 } as Command

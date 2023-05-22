@@ -13,7 +13,7 @@ import match from './src/commands/match'
 
 const http = require('http')
 http
-  .createServer(function (req: any, res: any) {
+  .createServer(function(req: any, res: any) {
     res.write('online')
     res.end()
   })
@@ -56,7 +56,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
 
   try {
-    await command.execute(interaction)
+    command.execute(interaction)
   } catch (error) {
     console.error(error)
     await interaction.reply({ content: 'コマンドを実行中にエラーが発生しました。', ephemeral: true })
