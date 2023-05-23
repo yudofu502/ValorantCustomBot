@@ -1,5 +1,5 @@
 import { ApplicationCommandOptionType } from 'discord.js'
-import { RANKS } from '../constants'
+import { RANKS, RATIO_TO_RANK } from '../constants'
 import { Command } from '../types/command'
 import KeyvFile from 'keyv-file'
 import { getRank, setRatio } from '../utils/rank'
@@ -37,7 +37,7 @@ export default {
       const rank = RANKS.find(
         (rank) => rank.id === rankName || rank.fullName === rankName || rank.otherNames?.includes(rankName)
       )
-      setRatio(key, (rank?.value ?? 0) + 5)
+      setRatio(key, (rank?.value ?? 0) + RATIO_TO_RANK / 2)
       await interaction.reply(
         interaction.user.toString() +
           'のランクを' +
