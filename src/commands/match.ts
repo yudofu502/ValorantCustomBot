@@ -46,19 +46,19 @@ export default {
     const roundNum = Math.max(team1, team2)
     const roundDif = Math.abs(team1 - team2)
     // 試合の規模とラウンド差からレートの変動の大きさを決める
-    // レート10ごとに1ランク変動する
+    // レート100ごとに1ランク変動する
     // 例: 13-5の場合、roundNum = 13, roundDif = 8でratioDif = 10.5
     const basicRatioDif = roundNum * 3 + roundDif * 5
     const team1AvgRatio =
       teams[0].length === 0
         ? 0
         : teams[0].reduce((sum: number, userId: string) => sum + (getRatio(userId) ?? INITIAL_RATIO), 0) /
-          teams[0].length
+        teams[0].length
     const team2AvgRatio =
       teams[1].length === 0
         ? 0
         : teams[1].reduce((sum: number, userId: string) => sum + (getRatio(userId) ?? INITIAL_RATIO), 0) /
-          teams[1].length
+        teams[1].length
 
     let message = '試合結果を登録しました'
     for (const team of teams) {
@@ -67,12 +67,15 @@ export default {
         const draw = team1 === team2
         const avgRatioDif = teams[0] === team ? team1AvgRatio - team2AvgRatio : team2AvgRatio - team1AvgRatio
         const avgRankDif = avgRatioDif / 100
-        let ratioDif = (basicRatioDif + basicRatioDif * Math.max(avgRankDif * 0.1, -0.9)) * (won ? 1 : draw ? 0 : -1)
+        let ratioDif = Math.round((basicRatioDif + basicRatioDif * Math.max(avgRankDif * 0.1, -0.9)) * (won ? 1 : draw ? 0 : -1))
         const ratio = getRatio(userId) ?? INITIAL_RATIO
         const rank = ratioToRank(ratio)
         const newRating = Math.max(0, ratio + ratioDif)
         setRatio(userId, newRating)
         const newRank = ratioToRank(newRating)
+        console.log(ratioDif)
+        console.log(newRating)
+        console.log(ratio)
         if (rank !== newRank) {
           message += `\n<@${userId}>さんのランクが${rank?.emoji ?? ''}${rank.fullName}から${newRank?.emoji ?? ''}${newRank.fullName
             }に変動しました`
