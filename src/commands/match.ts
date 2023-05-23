@@ -60,12 +60,11 @@ export default {
         setRatio(userId, newRating)
         const newRank = ratioToRank(newRating)
         if (rank !== newRank) {
-          message += `\n<@${userId}>さんのランクが${rank?.emoji ?? ''}${rank.fullName}から${newRank?.emoji ?? ''}${
-            newRank.fullName
-          }に変動しました`
+          message += `\n<@${userId}>さんのランクが${rank?.emoji ?? ''}${rank.fullName}から${newRank?.emoji ?? ''}${newRank.fullName
+            }に変動しました`
         }
       }
     }
-    await interaction.reply(message)
+    await interaction.followUp(message)
   },
 } as Command
