@@ -1,5 +1,5 @@
 import KeyvFile from 'keyv-file'
-import { RANKS, Rank } from '../constants'
+import { RANKS, RATIO_TO_RANK, Rank } from '../constants'
 
 function getRatio(userId: string): number | undefined {
   const members = new KeyvFile({
@@ -26,7 +26,7 @@ function getRank(userId: string): Rank | undefined {
 }
 
 function ratioToRank(ratio: number): Rank {
-  const rank = RANKS.filter((rank) => rank.value <= ratio).pop()
+  const rank = RANKS.filter((rank) => rank.value * RATIO_TO_RANK <= ratio).pop()
   return rank!
 }
 
