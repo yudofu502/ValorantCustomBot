@@ -37,7 +37,8 @@ export default {
           (rank?.rank?.emoji ?? '') +
           (rank?.rank?.fullName ?? 'ランクなし') +
           ' (' +
-          rank?.progress ?? '-' + ') です'
+          (rank?.progress ?? '?') +
+          ') です'
       )
     } else {
       // ランクを設定する
