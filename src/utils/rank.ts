@@ -15,6 +15,7 @@ function setRatio(userId: string, ratio: number, ruleId?: String): void {
   const modifiedRatio = Math.max(0, ratio)
   if (ruleId !== undefined && ruleId !== '0') {
     members.set(`${userId}.${ruleId}`, modifiedRatio)
+    console.log(`${userId}.${ruleId}`)
     return
   }
   members.set(userId, modifiedRatio)
