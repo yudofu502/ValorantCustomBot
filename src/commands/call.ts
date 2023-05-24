@@ -14,7 +14,8 @@ export default {
     const key = interaction.guildId
     await interaction.deferReply({ ephemeral: false })
     const cache = interaction.guild.channels.cache
-    const channels = guilds.get(key)
+    const guildId = interaction.guildId
+    const channels = guilds.get(`${guildId}.channels`)
     const home = channels.home
     const VCs = channels.VCs
     await interaction.followUp('集合させています')

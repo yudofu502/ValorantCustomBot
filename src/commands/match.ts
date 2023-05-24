@@ -59,7 +59,7 @@ export default {
         ? 0
         : teams[1].reduce((sum: number, userId: string) => sum + (getRatio(userId) ?? INITIAL_RATIO), 0) /
         teams[1].length
-    
+
     const wonTeam = team1 > team2 ? 'team1' : team2 > team1 ? 'team2' : null
 
     // 勝利チームが敗北チームに対してどれだけ強いか
@@ -82,9 +82,8 @@ export default {
         console.log(newRating)
         console.log(ratio)
         if (rank !== newRank) {
-          message += `\n<@${userId}>さんのランクが${rank?.emoji ?? ''}${rank.fullName}から${newRank?.emoji ?? ''}${
-            newRank.fullName
-          }に変動しました`
+          message += `\n<@${userId}>さんのランクが${rank?.emoji ?? ''}${rank.fullName}から${newRank?.emoji ?? ''}${newRank.fullName
+            }に変動しました`
         }
       }
     }
