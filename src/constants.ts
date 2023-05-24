@@ -155,12 +155,61 @@ export const RANKS = [
   },
 ] as Rank[]
 
+export const RULES = [
+  {
+    id: '0',
+    name: '縛りなし',
+    description: '普通のValorant',
+    category: 'none',
+    difficulty: 0,
+  },
+  {
+    id: '1',
+    name: 'ガーディアン以下縛り',
+    description: 'ガーディアン以下の武器のみ使用可能',
+    category: 'weapon',
+    difficulty: 3,
+  },
+  {
+    id: '2',
+    name: 'シェリフ以下縛り',
+    description: 'シェリフ以下の武器のみ使用可能',
+    category: 'weapon',
+    difficulty: 6,
+  },
+  {
+    id: '3',
+    name: 'クラシックオンリー',
+    description: 'クラシックのみ使用可能',
+    category: 'weapon',
+    difficulty: 9,
+  },
+  {
+    id: '4',
+    name: '銃禁止',
+    description: 'ナイフ以外の武器の使用禁止',
+    category: 'weapon',
+    difficulty: 15,
+  },
+] as Rule[]
+
 export type Rank = {
   id: string
   fullName: string
   otherNames?: string[]
   value: number
   emoji?: string
+}
+
+export type RuleCategory = 'weapon' | 'agent' | 'none'
+
+export type Rule = {
+  id: string
+  name: string
+  description: string
+  category: RuleCategory
+  // 何ランク分落とすか
+  difficulty: number
 }
 
 export type RankWithProgress = {

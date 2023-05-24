@@ -3,6 +3,7 @@ import { RANKS, RATIO_TO_RANK } from '../constants'
 import { Command } from '../types/command'
 import KeyvFile from 'keyv-file'
 import { getRank, setRatio } from '../utils/rank'
+import { getRule } from '../utils/rule'
 
 export default {
   commandType: 'guild',
@@ -27,9 +28,11 @@ export default {
     if (!interaction.options.getString('update')) {
       // 返信する
 
-      const rank = getRank(key)
+      const rule = getRule(key)
+      const rank = getRank(key, rule?.id)
       await interaction.reply(
         interaction.user.toString() +
+          `${rule ? ' (' + rule.name + ')' : ''}` +
           'は' +
           (rank?.rank.emoji ?? '') +
           (rank?.rank.fullName ?? 'ランクなし') +

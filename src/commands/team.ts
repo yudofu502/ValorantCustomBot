@@ -10,6 +10,7 @@ import { Command } from '../types/command'
 import { INITIAL_RATIO, RANKS, Rank, TEAMS } from '../constants'
 import KeyvFile from 'keyv-file'
 import { getRank, getRatio } from '../utils/rank'
+import { getRule } from '../utils/rule'
 
 // 2チームの戦力差がこの数字より小さくなるまで再抽選する
 const initialThreshold = 50
@@ -71,10 +72,12 @@ export default {
         const team2 = teams[1]
 
         const team1Power = team1.reduce((acc, m) => {
-          return acc + (getRatio(m.user.id) ?? INITIAL_RATIO)
+          const rule = getRule(m.user.id)
+          return acc + (getRatio(m.user.id, rule?.id) ?? INITIAL_RATIO)
         }, 0)
         const team2Power = team2.reduce((acc, m) => {
-          return acc + (getRatio(m.user.id) ?? INITIAL_RATIO)
+          const rule = getRule(m.user.id)
+          return acc + (getRatio(m.user.id, rule?.id) ?? INITIAL_RATIO)
         }, 0)
         console.log(team1Power, team2Power)
         const diff = Math.abs(team1Power - team2Power)
@@ -89,7 +92,9 @@ export default {
         return (
           acc +
           `チーム${index} (${index == 1 ? 'アタッカー' : 'ディフェンダー'})\n ` +
-          members.map((m) => `${m.toString()} ${getRank(m.user.id)?.emoji ?? ''}`).join('\n') +
+          members
+            .map((m) => `${m.toString()} ${getRank(m.user.id)?.rank.emoji ?? ''} ${getRule(m.user.id)?.name ?? ''}`)
+            .join('\n') +
           '\n\n'
         )
       }, '')
