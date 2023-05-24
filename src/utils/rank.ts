@@ -17,11 +17,12 @@ function setRatio(userId: string, ratio: number, ruleId?: String): void {
   const members = new KeyvFile({
     filename: 'members.keyv',
   })
+  const modifiedRatio = Math.max(0, ratio)
   if (ruleId !== undefined && ruleId !== '0') {
-    members.set(`${userId}.${ruleId}`, ratio)
+    members.set(`${userId}.${ruleId}`, modifiedRatio)
     return
   }
-  members.set(userId, ratio)
+  members.set(userId, modifiedRatio)
 }
 
 function getRank(userId: string, ruleId?: String): RankWithProgress | undefined {
