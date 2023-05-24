@@ -4,6 +4,7 @@ import KeyvFile from 'keyv-file'
 import { getRank, getRatio, ratioToRank, setRatio } from '../utils/rank'
 import { INITIAL_RATIO } from '../constants'
 import { getRule } from '../utils/rule'
+import { guilds } from '../utils/kv'
 
 export default {
   commandType: 'guild',
@@ -27,9 +28,6 @@ export default {
     if (!interaction.inCachedGuild()) return
     await interaction.deferReply({ ephemeral: false })
     const guildId = interaction.guildId
-    const guilds = new KeyvFile({
-      filename: 'guilds.keyv',
-    })
 
     const teams = await guilds.get(`${guildId}.teams`)
     if (!teams) {

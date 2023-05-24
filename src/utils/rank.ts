@@ -1,10 +1,8 @@
 import KeyvFile from 'keyv-file'
 import { RANKS, RATIO_TO_RANK, Rank, RankWithProgress, Rule } from '../constants'
+import { members } from './kv'
 
 function getRatio(userId: string, ruleId?: String): number | undefined {
-  const members = new KeyvFile({
-    filename: 'members.keyv',
-  })
   if (ruleId !== undefined && ruleId !== '0') {
     const ratio = members.get(`${userId}.${ruleId}`)
     return ratio
@@ -14,9 +12,6 @@ function getRatio(userId: string, ruleId?: String): number | undefined {
 }
 
 function setRatio(userId: string, ratio: number, ruleId?: String): void {
-  const members = new KeyvFile({
-    filename: 'members.keyv',
-  })
   const modifiedRatio = Math.max(0, ratio)
   if (ruleId !== undefined && ruleId !== '0') {
     members.set(`${userId}.${ruleId}`, modifiedRatio)
@@ -26,9 +21,6 @@ function setRatio(userId: string, ratio: number, ruleId?: String): void {
 }
 
 function getRank(userId: string, ruleId?: String): RankWithProgress | undefined {
-  const members = new KeyvFile({
-    filename: 'members.keyv',
-  })
   if (ruleId !== undefined && ruleId !== '0') {
     const ratio = members.get(`${userId}.${ruleId}`)
     const rank = ratio !== null ? ratioToRank(ratio) : undefined

@@ -11,6 +11,7 @@ import { INITIAL_RATIO, RANKS, Rank, TEAMS } from '../constants'
 import KeyvFile from 'keyv-file'
 import { getRank, getRatio } from '../utils/rank'
 import { getRule } from '../utils/rule'
+import { guilds } from '../utils/kv'
 
 // 2チームの戦力差がこの数字より小さくなるまで再抽選する
 const initialThreshold = 50
@@ -37,9 +38,6 @@ export default {
     await interaction.deferReply({ ephemeral: false })
     const guildId = interaction.guildId
     if (!interaction.inCachedGuild()) return
-    const guilds = new KeyvFile({
-      filename: 'guilds.keyv',
-    })
 
     const channel = interaction.member.voice.channel
     if (!channel) {
