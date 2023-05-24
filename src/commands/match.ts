@@ -51,12 +51,12 @@ export default {
       teams[0].length === 0
         ? 0
         : teams[0].reduce((sum: number, userId: string) => sum + (getRatio(userId) ?? INITIAL_RATIO), 0) /
-          teams[0].length
+        teams[0].length
     const team2AvgRatio =
       teams[1].length === 0
         ? 0
         : teams[1].reduce((sum: number, userId: string) => sum + (getRatio(userId) ?? INITIAL_RATIO), 0) /
-          teams[1].length
+        teams[1].length
 
     const wonTeam = team1 > team2 ? 'team1' : team2 > team1 ? 'team2' : null
 
@@ -75,12 +75,11 @@ export default {
         const ratio = getRatio(userId, rule?.id) ?? INITIAL_RATIO
         const rank = ratioToRank(ratio)
         const newRating = Math.max(0, ratio + ratioDif * (won ? 1 : draw ? 0 : -1))
-        setRatio(userId, newRating)
+        setRatio(userId, newRating, rule?.id)
         const newRank = ratioToRank(newRating)
         if (rank.rank !== newRank.rank) {
-          message += `\n<@${userId}>さん${rule ? ' (' + rule.name + ')' : ''}のランクが${rank?.rank.emoji ?? ''}${
-            rank?.rank.fullName
-          }から${newRank?.rank.emoji ?? ''}${newRank?.rank.fullName}に変動しました`
+          message += `\n<@${userId}>さん${rule ? ' (' + rule.name + ')' : ''}のランクが${rank?.rank.emoji ?? ''}${rank?.rank.fullName
+            }から${newRank?.rank.emoji ?? ''}${newRank?.rank.fullName}に変動しました`
         }
       }
     }

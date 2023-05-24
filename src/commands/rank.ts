@@ -32,13 +32,13 @@ export default {
       const rank = getRank(key, rule?.id)
       await interaction.reply(
         interaction.user.toString() +
-          `${rule ? ' (' + rule.name + ')' : ''}` +
-          'は' +
-          (rank?.rank?.emoji ?? '') +
-          (rank?.rank?.fullName ?? 'ランクなし') +
-          ' (' +
-          (rank?.progress ?? '?') +
-          ') です'
+        `${rule ? ' (' + rule.name + ') ' : ''}` +
+        'は' +
+        (rank?.rank?.emoji ?? '') +
+        (rank?.rank?.fullName ?? 'ランクなし') +
+        ' (' +
+        (rank?.progress ?? '?') +
+        ') です'
       )
     } else {
       // ランクを設定する
@@ -49,10 +49,10 @@ export default {
       setRatio(key, (rank?.value ?? 0) * RATIO_TO_RANK + RATIO_TO_RANK / 2)
       await interaction.reply(
         interaction.user.toString() +
-          'のランクを' +
-          (rank?.emoji ?? '') +
-          (rank?.fullName ?? 'ランクなし') +
-          'に設定しました'
+        'のランクを' +
+        (rank?.emoji ?? '') +
+        (rank?.fullName ?? 'ランクなし') +
+        'に設定しました'
       )
     }
   },

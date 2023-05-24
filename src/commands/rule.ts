@@ -31,7 +31,7 @@ export default {
   async execute(interaction) {
     if (!interaction.inCachedGuild()) return
 
-    const selectedRule = interaction.options.getString('rule')
+    const selectedRule = interaction.options.getString('use')
 
     if (selectedRule === null) {
       const currentRule = getRule(interaction.user.id)
@@ -71,7 +71,7 @@ export default {
       embeds: [
         {
           title: rule.name,
-          description: `ランク: ${ruleRank?.rank.emoji}${ruleRank?.rank.fullName} (${ruleRank?.progress})`,
+          description: `${rule?.description}\n\nランク: ${ruleRank?.rank.emoji}${ruleRank?.rank.fullName} (${ruleRank?.progress})`,
         },
       ],
     })
