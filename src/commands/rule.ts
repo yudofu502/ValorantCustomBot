@@ -28,7 +28,7 @@ export default {
 
     const selectedRule = interaction.options.getString('rule')
 
-    if (!selectedRule) {
+    if (selectedRule === null) {
       const currentRule = getRule(interaction.user.id)
       if (!currentRule) {
         await interaction.reply(`${interaction.user.toString()} は縛りなしです`)
@@ -37,6 +37,7 @@ export default {
       await interaction.reply({
         content: `${interaction.user.toString()} は ${currentRule.name} を選択しています`,
       })
+      return
     }
 
     const rule = RULES.find((rule) => rule.id === selectedRule)

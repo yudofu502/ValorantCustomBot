@@ -34,11 +34,10 @@ export default {
         interaction.user.toString() +
           `${rule ? ' (' + rule.name + ')' : ''}` +
           'は' +
-          (rank?.rank.emoji ?? '') +
-          (rank?.rank.fullName ?? 'ランクなし') +
+          (rank?.rank?.emoji ?? '') +
+          (rank?.rank?.fullName ?? 'ランクなし') +
           ' (' +
-          rank?.progress +
-          ') です'
+          rank?.progress ?? '-' + ') です'
       )
     } else {
       // ランクを設定する
