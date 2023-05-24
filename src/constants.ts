@@ -162,3 +162,8 @@ export type Rank = {
   value: number
   emoji?: string
 }
+
+export type RankWithProgress = {
+  rank: Rank
+  progress: number
+}

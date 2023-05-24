@@ -68,7 +68,7 @@ export default {
     // 勝利チームが強ければ強いほどレートの変動幅を小さくする
     let ratioDif = Math.round(basicRatioDif + basicRatioDif * Math.max(-avgRankDif * 0.1, -0.9))
 
-    let message = '試合結果を登録しました\n\n変動幅:' + ratioDif
+    let message = '試合結果を登録しました\n\n変動幅:' + ratioDif + '\n'
     for (const team of teams) {
       for (const userId of team) {
         const won = teams[0] === team ? team1 > team2 : team2 > team1
@@ -82,9 +82,9 @@ export default {
         console.log(newRating)
         console.log(ratio)
         if (rank !== newRank) {
-          message += `\n<@${userId}>さんのランクが${rank?.emoji ?? ''}${rank.fullName}から${newRank?.emoji ?? ''}${
-            newRank.fullName
-          }に変動しました`
+          message += `\n<@${userId}>さんのランクが${rank?.rank.emoji ?? ''}${rank?.rank.fullName}から${
+            newRank?.rank.emoji ?? ''
+          }${newRank?.rank.fullName}に変動しました`
         }
       }
     }

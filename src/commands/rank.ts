@@ -29,7 +29,13 @@ export default {
 
       const rank = getRank(key)
       await interaction.reply(
-        interaction.user.toString() + 'は' + (rank?.emoji ?? '') + (rank?.fullName ?? 'ランクなし') + 'です'
+        interaction.user.toString() +
+          'は' +
+          (rank?.rank.emoji ?? '') +
+          (rank?.rank.fullName ?? 'ランクなし') +
+          ' (' +
+          rank?.progress +
+          ') です'
       )
     } else {
       // ランクを設定する
