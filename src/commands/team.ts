@@ -91,7 +91,12 @@ export default {
           acc +
           `チーム${index} (${index == 1 ? 'アタッカー' : 'ディフェンダー'})\n ` +
           members
-            .map((m) => `${m.toString()} ${getRank(m.user.id)?.rank.emoji ?? ''} ${getRule(m.user.id)?.name ?? ''}`)
+            .map(
+              (m) =>
+                `${m.toString()} ${getRank(m.user.id, getRule(m.user.id)?.id)?.rank.emoji ?? ''} ${
+                  getRule(m.user.id)?.name ?? ''
+                }`
+            )
             .join('\n') +
           '\n\n'
         )
