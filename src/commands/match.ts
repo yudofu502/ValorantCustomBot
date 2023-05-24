@@ -78,10 +78,7 @@ export default {
         const newRating = Math.max(0, ratio + ratioDif * (won ? 1 : draw ? 0 : -1))
         setRatio(userId, newRating)
         const newRank = ratioToRank(newRating)
-        console.log(ratioDif)
-        console.log(newRating)
-        console.log(ratio)
-        if (rank !== newRank) {
+        if (rank.rank !== newRank.rank) {
           message += `\n<@${userId}>さんのランクが${rank?.rank.emoji ?? ''}${rank?.rank.fullName}から${newRank?.rank.emoji ?? ''
             }${newRank?.rank.fullName}に変動しました`
         }
