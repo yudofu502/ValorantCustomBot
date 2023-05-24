@@ -14,13 +14,18 @@ export default {
   description: 'ルールを設定または確認します',
   options: [
     {
-      name: 'rule',
-      description: 'ルール',
+      name: 'use',
+      description: '使用するルール',
       type: ApplicationCommandOptionType.String,
       choices: RULES.map((rule) => ({
         name: rule.name + ' ' + rule.description,
         value: rule.id,
       })),
+    },
+    {
+      name: 'reset',
+      description: 'ランクをリセットする',
+      type: ApplicationCommandOptionType.Boolean,
     },
   ],
   async execute(interaction) {
@@ -46,8 +51,8 @@ export default {
       return
     }
     let ruleRatio = getRatio(interaction.user.id, rule.id)
-
-    if (ruleRatio === undefined) {
+    const reset = interaction.options.getBoolean('reset')
+    if (ruleRatio === undefined || reset) {
       const ratio = getRatio(interaction.user.id)
       if (!ratio) {
         await interaction.reply('ランクを設定してください')
